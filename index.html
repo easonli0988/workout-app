@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>你今天運動了嗎?胖子!</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root {
+--bg-color: #0f172a;
+--card-bg: #1e293b;
+--accent-cyan: #22d3ee;
+--accent-green: #34d399;
+--text-main: #f8fafc;
+--text-sub: #94a3b8;
+}
+body {
+background-color: var(--bg-color);
+color: var(--text-main);
+font-family: -apple-system, sans-serif;
+padding: 16px;
+margin: 0;
+}
+.header { text-align: center; margin-bottom: 20px; }
+.header h1 { color: var(--accent-cyan); font-size: 22px; margin: 0; }
+.stats-card {
+display: flex; gap: 10px; margin-bottom: 20px;
+}
+.stat-box {
+flex: 1; background: var(--card-bg); padding: 12px; border-radius: 12px;
+border: 1px solid #334155; text-align: center;
+}
+.stat-val { font-size: 20px; font-weight: bold; color: #facc15; }
+.form-group { margin-bottom: 14px; }
+label { display: block; font-size: 13px; color: var(--text-sub); margin-bottom: 5px; }
+select, input {
+width: 100%; padding: 12px; background: #090d16; border: 1px solid #334155;
+color: #fff; border-radius: 8px; box-sizing: border-box; font-size: 15px;
+}
+.btn-submit {
+width: 100%; padding: 14px; background: linear-gradient(90deg, #06b6d4, #3b82f6);
+color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 16px;
+}
+</style>
+</head>
+<body>
+<div class="header">
+<h1>� 你今天運動了嗎?胖子!</h1>
+<p style="color:var(--text-sub); font-size:12px;">夫妻專屬運動PK打卡</p>
+</div>
+<div class="stats-card">
+<div class="stat-box">
+<div style="font-size:12px; color:var(--text-sub);">� 老公本週</div>
+<div class="stat-val" id="husband-time">0 分鐘</div>
+</div>
+<div class="stat-box">
+<div style="font-size:12px; color:var(--text-sub);">� 老婆本週 �</div>
+<div class="stat-val" style="color:#f43f5e;" id="wife-time">0 分鐘</div>
+</div>
+</div>
+<form id="workoutForm">
+<div class="form-group">
+<label>� 打卡成員</label>
+<select id="user">
+<option value="老公">� 老公</option>
+<option value="老婆">� 老婆</option>
+</select>
+</div>
+<div class="form-group">
+<label>� 運動項目</label>
+<select id="item">
+<option value="1-快走">� 1- 快走</option>
+<option value="2-騎腳踏車">� 2- 騎腳踏車</option>
+<option value="3-跟著影片跳操">� 3- 跟著影片跳操</option>
+<option value="4-彈力繩訓練">� 4- 彈力繩訓練</option>
+<option value="5-椅子操">� 5- 椅子操</option>
+</select>
+</div>
+<div style="display:flex; gap:10px;">
+<div class="form-group" style="flex:1;">
+<label>⏱ 時間 (分鐘)</label>
+<input type="number" id="duration" value="30">
+</div>
+<div class="form-group" style="flex:1;">
+<label>� 組數/次數</label>
+<input type="number" id="sets" value="1">
+</div>
+</div>
+<div class="form-group">
+<label>� 運動強度/感受</label>
+<select id="feeling">
+<option value="輕鬆">� 輕鬆</option>
+<option value="適中" selected>� 適中</option>
+<option value="爆汗">� 爆汗</option>
+</select>
+</div>
+<button type="button" class="btn-submit" onclick="saveData()">� 儲存紀錄，拒絕當胖子！</button>
+</form>
+<script>
+// ⚠ 請替換成您自己的 Google Apps Script 部署 URL
+const GAS_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+function saveData() {
+const data = {
+user: document.getElementById('user').value,
+item: document.getElementById('item').value,
+duration: document.getElementById('duration').value,
+sets: document.getElementById('sets').value,
+feeling: document.getElementById('feeling').value
+};
+fetch(GAS_URL, {
+method: 'POST',
+mode: 'no-cors',
+body: JSON.stringify(data)
+}).then(() => {
+alert("� 打卡成功！熱量燃燒中！");
+}).catch(err => alert("儲存失敗: " + err));
+}
+</script>
+</body>
+</html>
+https://script.google.com/macros/s/AKfycbzb97ZWo6fe9IT_8JVnW9SJxMdsBFLK_9m6A_HgVuZ-rbz_AltbiRsohiJpxhZDHsc0/exec
