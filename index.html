@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>你今天運動了嗎?胖子!</title>
   
-  <!-- 🐷 iPhone 桌面 App 豬頭圖示設定 (SVG Data URI) -->
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' background-color='%230f172a'><rect width='100' height='100' fill='%230f172a'/><text y='75' x='10' font-size='75'>🐷</text></svg>">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐷</text></svg>">
+  <!-- 🐷 iPhone 桌面 App 豬頭圖示實體檔案設定 -->
+  <link rel="apple-touch-icon" href="pig.jpg">
+  <link rel="icon" type="image/png" href="pig.jpg">
 
   <style>
     :root {
@@ -171,10 +171,8 @@
   </a>
 
   <script>
-    // 已更新為您最新的 Apps Script Web App URL
     const GAS_URL = "https://script.google.com/macros/s/AKfycbxoaVThvvpjxutMgwlpkaMhKKFrPcyZotfvShYKRPFlNWYqEvZEkJ9kvV-pf6o534T24w/exec";
 
-    // 切換頁籤
     function switchTab(tab) {
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -188,7 +186,6 @@
       }
     }
 
-    // 儲存運動紀錄
     function saveWorkout() {
       const data = {
         type: 'workout',
@@ -205,7 +202,6 @@
         .catch(err => alert("儲存失敗: " + err));
     }
 
-    // 儲存體重紀錄
     function saveWeight() {
       const weightVal = document.getElementById('weight-val').value;
       if(!weightVal) { alert("請輸入體重！"); return; }
