@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>你今天運動了嗎?胖子!</title>
   
-  <!-- 豬頭 App 圖示 -->
+  <!-- 🐷 iPhone 桌面 App 豬頭圖示設定 (SVG Data URI) -->
   <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' background-color='%230f172a'><rect width='100' height='100' fill='%230f172a'/><text y='75' x='10' font-size='75'>🐷</text></svg>">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐷</text></svg>">
 
@@ -41,7 +41,7 @@
       flex: 1; background: var(--card-bg); padding: 12px; border-radius: 12px;
       border: 1px solid #334155; text-align: center;
     }
-    .stat-val { font-size: 18px; font-weight: bold; color: #facc15; margin-top: 4px; }
+    .stat-val { font-size: 16px; font-weight: bold; color: #facc15; margin-top: 4px; }
     
     .form-group { margin-bottom: 12px; }
     label { display: block; font-size: 13px; color: var(--text-sub); margin-bottom: 4px; }
@@ -71,15 +71,15 @@
     <p style="color:var(--text-sub); font-size:12px; margin:0;">夫妻專屬運動 & 體重管理</p>
   </div>
 
-  <!-- PK 排行儀表板 -->
+  <!-- 打卡儀表板 -->
   <div class="stats-card">
     <div class="stat-box">
       <div style="font-size:12px; color:var(--text-sub);">🕺 帥帥老公</div>
-      <div class="stat-val" id="husband-time">運動打卡</div>
+      <div class="stat-val">運動打卡</div>
     </div>
     <div class="stat-box">
       <div style="font-size:12px; color:var(--text-sub);">💃 胖胖老婆 (👑)</div>
-      <div class="stat-val" style="color:#f43f5e;" id="wife-time">熱量燃燒</div>
+      <div class="stat-val" style="color:#f43f5e;">熱量燃燒</div>
     </div>
   </div>
 
@@ -101,7 +101,7 @@
       </div>
 
       <div class="form-group">
-        <label>運動項目 (從試算表自動同步)</label>
+        <label>運動項目</label>
         <select id="item">
           <option value="1- 快走">1- 快走</option>
           <option value="2- 騎腳踏車">2- 騎腳踏車</option>
@@ -171,7 +171,8 @@
   </a>
 
   <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbzb97ZWdqrbz_AltbiRsohiJpxhZDHsC0/exec";
+    // 已更新為您最新的 Apps Script Web App URL
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbxoaVThvvpjxutMgwlpkaMhKKFrPcyZotfvShYKRPFlNWYqEvZEkJ9kvV-pf6o534T24w/exec";
 
     // 切換頁籤
     function switchTab(tab) {
