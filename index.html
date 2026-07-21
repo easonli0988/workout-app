@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>你今天運動了嗎?胖子!</title>
+  
+  <!-- 豬頭 App 圖示 -->
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' background-color='%230f172a'><rect width='100' height='100' fill='%230f172a'/><text y='75' x='10' font-size='75'>🐷</text></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐷</text></svg>">
+
   <style>
     :root {
       --bg-color: #0f172a;
@@ -20,18 +25,26 @@
       padding: 16px;
       margin: 0;
     }
-    .header { text-align: center; margin-bottom: 20px; }
-    .header h1 { color: var(--accent-cyan); font-size: 22px; margin: 0 0 6px 0; }
-    .stats-card {
-      display: flex; gap: 10px; margin-bottom: 20px;
+    .header { text-align: center; margin-bottom: 16px; }
+    .header h1 { color: var(--accent-cyan); font-size: 22px; margin: 0 0 4px 0; }
+    
+    /* 頁籤切換按鈕 */
+    .tab-container { display: flex; gap: 8px; margin-bottom: 16px; }
+    .tab-btn {
+      flex: 1; padding: 10px; background: #334155; color: var(--text-sub);
+      border: none; border-radius: 8px; font-weight: bold; cursor: pointer; text-align: center;
     }
+    .tab-btn.active { background: var(--accent-cyan); color: #0f172a; }
+
+    .stats-card { display: flex; gap: 10px; margin-bottom: 16px; }
     .stat-box {
       flex: 1; background: var(--card-bg); padding: 12px; border-radius: 12px;
       border: 1px solid #334155; text-align: center;
     }
-    .stat-val { font-size: 20px; font-weight: bold; color: #facc15; margin-top: 4px; }
-    .form-group { margin-bottom: 14px; }
-    label { display: block; font-size: 13px; color: var(--text-sub); margin-bottom: 5px; }
+    .stat-val { font-size: 18px; font-weight: bold; color: #facc15; margin-top: 4px; }
+    
+    .form-group { margin-bottom: 12px; }
+    label { display: block; font-size: 13px; color: var(--text-sub); margin-bottom: 4px; }
     select, input {
       width: 100%; padding: 12px; background: #090d16; border: 1px solid #334155;
       color: #fff; border-radius: 8px; box-sizing: border-box; font-size: 15px;
@@ -41,88 +54,171 @@
       color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 16px;
       margin-top: 10px; cursor: pointer;
     }
+    .btn-view {
+      width: 100%; padding: 12px; background: #1e293b;
+      color: #38bdf8; border: 1px solid #0284c7; border-radius: 10px; font-weight: bold; font-size: 14px;
+      margin-top: 16px; cursor: pointer; text-align: center; display: block; text-decoration: none;
+      box-sizing: border-box;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
   </style>
 </head>
 <body>
+
   <div class="header">
     <h1>你今天運動了嗎?胖子!</h1>
-    <p style="color:var(--text-sub); font-size:12px; margin:0;">夫妻專屬運動 PK 打卡</p>
+    <p style="color:var(--text-sub); font-size:12px; margin:0;">夫妻專屬運動 & 體重管理</p>
   </div>
 
+  <!-- PK 排行儀表板 -->
   <div class="stats-card">
     <div class="stat-box">
-      <div style="font-size:12px; color:var(--text-sub);">老公本週</div>
-      <div class="stat-val" id="husband-time">0 分鐘</div>
+      <div style="font-size:12px; color:var(--text-sub);">🕺 帥帥老公</div>
+      <div class="stat-val" id="husband-time">運動打卡</div>
     </div>
     <div class="stat-box">
-      <div style="font-size:12px; color:var(--text-sub);">老婆本週 (👑 第一名)</div>
-      <div class="stat-val" style="color:#f43f5e;" id="wife-time">0 分鐘</div>
+      <div style="font-size:12px; color:var(--text-sub);">💃 胖胖老婆 (👑)</div>
+      <div class="stat-val" style="color:#f43f5e;" id="wife-time">熱量燃燒</div>
     </div>
   </div>
 
-  <form id="workoutForm">
-    <div class="form-group">
-      <label>打卡成員</label>
-      <select id="user">
-        <option value="老公">老公</option>
-        <option value="老婆">老婆</option>
-      </select>
-    </div>
+  <!-- 頁籤切換：運動紀錄 / 體重紀錄 -->
+  <div class="tab-container">
+    <button class="tab-btn active" onclick="switchTab('workout')">🏋️ 運動打卡</button>
+    <button class="tab-btn" onclick="switchTab('weight')">⚖️ 體重紀錄</button>
+  </div>
 
-    <div class="form-group">
-      <label>運動項目</label>
-      <select id="item">
-        <option value="1-快走">1- 快走</option>
-        <option value="2-騎腳踏車">2- 騎腳踏車</option>
-        <option value="3-跟著影片跳操">3- 跟著影片跳操</option>
-        <option value="4-彈力繩訓練">4- 彈力繩訓練</option>
-        <option value="5-椅子操">5- 椅子操</option>
-      </select>
-    </div>
-
-    <div style="display:flex; gap:10px;">
-      <div class="form-group" style="flex:1;">
-        <label>時間 (分鐘)</label>
-        <input type="number" id="duration" value="30">
+  <!-- 1. 運動打卡表單 -->
+  <div id="workout-tab" class="tab-content active">
+    <form id="workoutForm">
+      <div class="form-group">
+        <label>打卡成員</label>
+        <select id="user">
+          <option value="帥帥老公">🕺 帥帥老公</option>
+          <option value="胖胖老婆">💃 胖胖老婆</option>
+        </select>
       </div>
-      <div class="form-group" style="flex:1;">
-        <label>組數/次數</label>
-        <input type="number" id="sets" value="1">
+
+      <div class="form-group">
+        <label>運動項目 (從試算表自動同步)</label>
+        <select id="item">
+          <option value="1- 快走">1- 快走</option>
+          <option value="2- 騎腳踏車">2- 騎腳踏車</option>
+          <option value="3- 跟著影片跳操">3- 跟著影片跳操</option>
+          <option value="4- 彈力繩訓練">4- 彈力繩訓練</option>
+          <option value="5- 椅子操">5- 椅子操</option>
+        </select>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label>運動強度/感受</label>
-      <select id="feeling">
-        <option value="輕鬆">輕鬆</option>
-        <option value="適中" selected>適中</option>
-        <option value="爆汗">爆汗</option>
-      </select>
-    </div>
+      <div style="display:flex; gap:10px;">
+        <div class="form-group" style="flex:1;">
+          <label>⏱️ 時間 (分鐘)</label>
+          <input type="number" id="duration" value="30">
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label>🔢 組數/次數</label>
+          <input type="number" id="sets" value="1">
+        </div>
+      </div>
 
-    <button type="button" class="btn-submit" onclick="saveData()">儲存紀錄，拒絕當胖子！</button>
-  </form>
+      <div class="form-group">
+        <label>🔥 小米手環消耗卡路里 (kcal)</label>
+        <input type="number" id="calories" placeholder="例如：250">
+      </div>
+
+      <div class="form-group">
+        <label>運動強度/感受</label>
+        <select id="feeling">
+          <option value="輕鬆">輕鬆</option>
+          <option value="適中" selected>適中</option>
+          <option value="爆汗">爆汗</option>
+        </select>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="saveWorkout()">💪 儲存運動紀錄！</button>
+    </form>
+  </div>
+
+  <!-- 2. 體重紀錄表單 -->
+  <div id="weight-tab" class="tab-content">
+    <form id="weightForm">
+      <div class="form-group">
+        <label>記錄成員</label>
+        <select id="weight-user">
+          <option value="帥帥老公">🕺 帥帥老公</option>
+          <option value="胖胖老婆">💃 胖胖老婆</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>⚖️ 量測體重 (公斤 kg)</label>
+        <input type="number" id="weight-val" step="0.1" placeholder="例如：68.5">
+      </div>
+
+      <div class="form-group">
+        <label>📝 備註 (可不填)</label>
+        <input type="text" id="weight-note" placeholder="例如：早起空腹量測">
+      </div>
+
+      <button type="button" class="btn-submit" style="background: linear-gradient(90deg, #10b981, #059669);" onclick="saveWeight()">⚖️ 儲存體重資料！</button>
+    </form>
+  </div>
+
+  <!-- 查看試算表圖表連結 -->
+  <a id="sheetLink" href="https://docs.google.com/spreadsheets/d/1ifjgaFc_z9dmccusedSAQtUQehaYEkvIbTdZTKxZ13U/edit?usp=sharing" target="_blank" class="btn-view">
+    📊 查看歷史紀錄 & 統計圖表 (Google 試算表)
+  </a>
 
   <script>
-    // 您的 Google Apps Script 網址已自動整合在背景
     const GAS_URL = "https://script.google.com/macros/s/AKfycbzb97ZWdqrbz_AltbiRsohiJpxhZDHsC0/exec";
 
-    function saveData() {
+    // 切換頁籤
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      
+      if(tab === 'workout') {
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        document.getElementById('workout-tab').classList.add('active');
+      } else {
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        document.getElementById('weight-tab').classList.add('active');
+      }
+    }
+
+    // 儲存運動紀錄
+    function saveWorkout() {
       const data = {
+        type: 'workout',
         user: document.getElementById('user').value,
         item: document.getElementById('item').value,
         duration: document.getElementById('duration').value,
         sets: document.getElementById('sets').value,
+        calories: document.getElementById('calories').value,
         feeling: document.getElementById('feeling').value
       };
       
-      fetch(GAS_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        body: JSON.stringify(data)
-      }).then(() => {
-        alert("打卡成功！熱量燃燒中！");
-      }).catch(err => alert("儲存失敗: " + err));
+      fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
+        .then(() => alert("🎉 運動紀錄已成功寫入！熱量持續燃燒中！"))
+        .catch(err => alert("儲存失敗: " + err));
+    }
+
+    // 儲存體重紀錄
+    function saveWeight() {
+      const weightVal = document.getElementById('weight-val').value;
+      if(!weightVal) { alert("請輸入體重！"); return; }
+
+      const data = {
+        type: 'weight',
+        user: document.getElementById('weight-user').value,
+        weight: weightVal,
+        note: document.getElementById('weight-note').value
+      };
+      
+      fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(data) })
+        .then(() => alert("🎉 體重紀錄已成功儲存！"))
+        .catch(err => alert("儲存失敗: " + err));
     }
   </script>
 </body>
